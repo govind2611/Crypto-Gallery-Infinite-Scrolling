@@ -1,25 +1,53 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
-function App() {
+import "./App.css";
+import CryptoList from "./components/CryptoList";
+import Loader from "./components/Loader.js";
+
+const PAGE_NUMBER = 1;
+
+const App = () => {
+  const [coinsData, setCoinsData] = useState([]);
+  const [page, setPage] = useState(PAGE_NUMBER);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    setTimeout(async () => {
+      const response = await axios.get(
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=12&page=${page}&sparkline=false`
+      );
+
+      setCoinsData((prev) => {
+        return [...prev, ...response.data];
+      });
+      setLoading(false);
+    }, 2000);
+  }, [page]);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const handleScroll = async () => {
+    if (
+      window.innerHeight + document.documentElement.scrollTop + 1 >=
+      document.documentElement.scrollHeight
+    ) {
+      setLoading(true);
+      setPage((prev) => prev + 1);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app">
+      <h1>Crypto Gallery</h1>
+      <CryptoList coinsData={coinsData} />
+      {loading && <Loader />}
     </div>
   );
-}
+};
 
 export default App;
