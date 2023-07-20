@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Crypto-Gallery-Infinite-Scrolling/static/css/main.cde88de8.css",
+    "main.js": "/Crypto-Gallery-Infinite-Scrolling/static/js/main.7e42dc34.js",
+    "index.html": "/Crypto-Gallery-Infinite-Scrolling/index.html",
+    "main.cde88de8.css.map": "/Crypto-Gallery-Infinite-Scrolling/static/css/main.cde88de8.css.map",
+    "main.7e42dc34.js.map": "/Crypto-Gallery-Infinite-Scrolling/static/js/main.7e42dc34.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.cde88de8.css",
+    "static/js/main.7e42dc34.js"
+  ]
+}
